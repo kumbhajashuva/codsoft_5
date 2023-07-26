@@ -1,0 +1,75 @@
+import random
+
+questions = [
+    {
+        'question': 'What is the capital of France?',
+        'choices': ['London', 'Paris', 'Berlin', 'Madrid'],
+        'correct_answer': 'Paris'
+    },
+    {
+        'question': 'Who painted the Mona Lisa?',
+        'choices': ['Vincent van Gogh', 'Leonardo da Vinci', 'Pablo Picasso', 'Claude Monet'],
+        'correct_answer': 'Leonardo da Vinci'
+    },
+    {
+        'question': 'Which planet is known as the "Red Planet"?',
+        'choices': ['Venus', 'Mars', 'Jupiter', 'Mercury'],
+        'correct_answer': 'Mars'
+    },
+    {
+        'question': 'What is the tallest mammal on Earth?',
+        'choices': ['Elephant', 'Giraffe', 'Horse', 'Whale'],
+        'correct_answer': 'Giraffe'
+    },
+]
+
+def display_welcome_message():
+    print("Welcome to the Quiz Game!")
+    print("You will be asked multiple-choice or fill-in-the-blank questions on a specific topic.")
+    print("Select the correct option for each question to earn points.")
+    print("Let's get started!\n")
+
+def present_quiz_questions():
+    score = 0
+    for question in random.sample(questions, len(questions)):
+        print(question['question'])
+        for index, choice in enumerate(question['choices'], start=1):
+            print(f"{index}. {choice}")
+
+        user_answer = input("Your answer (enter the number or the option): ")
+        user_answer = user_answer.strip().lower()
+
+        if user_answer == str(question['choices'].index(question['correct_answer']) + 1) or user_answer == question['correct_answer'].lower():
+            print("Correct!\n")
+            score += 1
+        else:
+            print(f"Incorrect. The correct answer is: {question['correct_answer']}\n")
+
+    return score
+
+def display_final_results(score):
+    print("Quiz Complete!")
+    print(f"Your score: {score}/{len(questions)}")
+    if score == len(questions):
+        print("Congratulations! You got a perfect score.")
+    elif score >= len(questions) // 2:
+        print("Good job! You did well.")
+    else:
+        print("Keep practicing to improve your score.")
+
+def play_again():
+    return input("Do you want to play again? (yes/no): ").strip().lower() == 'yes'
+
+def main():
+    display_welcome_message()
+
+    while True:
+        score = present_quiz_questions()
+        display_final_results(score)
+
+        if not play_again():
+            print("Thank you for playing!")
+            break
+
+if _name_ == "_main_":
+    main()
